@@ -8,7 +8,7 @@ namespace Mini4.Core
     /// - 1분마다 적 단계 상승
     /// - 남은 시간 및 단계 이벤트 전달
     /// </summary>
-    public class GameManager : MonoBehaviour
+    public class MiniProjectGameManager : MonoBehaviour
     {
         [Header("Game Rule")]
         [SerializeField] private float playTimeSeconds = 300f;
@@ -75,3 +75,5 @@ namespace Mini4.Core
         }
     }
 }
+
+
