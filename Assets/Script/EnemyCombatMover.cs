@@ -54,7 +54,7 @@ namespace Mini4.Enemy
 
         private void TryCacheCastle()
         {
-            _castle = FindObjectOfType<CastleHealth>();
+            _castle = Object.FindAnyObjectByType<CastleHealth>();
             if (_castle != null)
             {
                 return;
@@ -79,8 +79,8 @@ namespace Mini4.Enemy
         }
 
         private HealthEntity SelectTarget()
-        {
-            AttackTowerMarker[] towers = FindObjectsOfType<AttackTowerMarker>();
+        {            
+            AttackTowerMarker[] towers = Object.FindObjectsByType<AttackTowerMarker>(FindObjectsSortMode.None);
             AttackTowerMarker nearestTower = null;
             float nearestDist = float.MaxValue;
             foreach (AttackTowerMarker tower in towers)

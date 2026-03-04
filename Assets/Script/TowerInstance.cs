@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Mini4.Tower
@@ -12,9 +13,12 @@ namespace Mini4.Tower
         [SerializeField] private float baseAttack = 5f;
         [SerializeField] private float currentAttack = 5f;
 
+        public static event Action<TowerInstance> OnTowerClicked;
+
         public AttackTowerType TowerType => towerType;
         public int Level => level;
         public float CurrentAttack => currentAttack;
+        public string DisplayName => towerType.ToString();
 
         public void Initialize(AttackTowerType type, float initialAttack)
         {
@@ -29,6 +33,10 @@ namespace Mini4.Tower
             level++;
             currentAttack = (currentAttack + additive) * (1f + percentMultiplier);
         }
+
+        private void OnMouseDown()
+        {
+            OnTowerClicked?.Invoke(this);
+        }
     }
 }
-

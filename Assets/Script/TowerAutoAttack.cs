@@ -10,6 +10,8 @@ namespace Mini4.Tower
         [SerializeField] private float attackRange = 2.4f;
         [SerializeField] private float attackInterval = 0.6f;
 
+        public float AttackRange => attackRange;
+
         private float _cooldown;
 
         private void Awake()
@@ -18,6 +20,11 @@ namespace Mini4.Tower
             {
                 towerInstance = GetComponent<TowerInstance>();
             }
+        }
+
+        public void SetAttackRange(float range)
+        {
+            attackRange = Mathf.Max(0.1f, range);
         }
 
         private void Update()

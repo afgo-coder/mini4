@@ -11,6 +11,14 @@ namespace Mini4.UI
     {
         [SerializeField] private TowerPlacementManager placementManager;
 
+        private void Awake()
+        {
+            if (placementManager == null)
+            {
+                placementManager = Object.FindAnyObjectByType<TowerPlacementManager>();
+            }
+        }
+
         public void SelectArcher() => placementManager?.SelectAttackTower((int)AttackTowerType.Archer);
         public void SelectCannon() => placementManager?.SelectAttackTower((int)AttackTowerType.Cannon);
         public void SelectCrossbow() => placementManager?.SelectAttackTower((int)AttackTowerType.Crossbow);
@@ -21,4 +29,5 @@ namespace Mini4.UI
         public void CancelBuild() => placementManager?.CancelBuildMode();
     }
 }
+
 

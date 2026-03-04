@@ -49,6 +49,11 @@ namespace Mini4.Economy
 
         private void Update()
         {
+            if (mainCamera == null)
+            {
+                mainCamera = Camera.main;
+            }
+
             HandleHarvestClick();
 
             if (economyManager == null || castleCenter == null || roadTilemap == null)
@@ -95,15 +100,44 @@ namespace Mini4.Economy
                 return;
             }
 
-            Vector3 world = mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 0f));
-            RaycastHit2D hit = Physics2D.Raycast(world, Vector2.zero);
-            if (!hit.collider)
+            Vector3 world3 = mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 0f));
+            Vector2 world = new Vector2(world3.x, world3.y);
+
+            Collider2D[] hits = Physics2D.OverlapPointAll(world);
+            if (hits == null || hits.Length == 0)
             {
                 return;
             }
 
-            HarvestableMushroom mushroom = hit.collider.GetComponent<HarvestableMushroom>();
-            mushroom?.Harvest();
+            HarvestableMushroom best = null;
+            float nearest = float.MaxValue;
+            foreach (Collider2D hit in hits)
+            {
+                if (hit == null)
+                {
+                    continue;
+                }
+
+                HarvestableMushroom mushroom = hit.GetComponent<HarvestableMushroom>();
+                if (mushroom == null)
+                {
+                    mushroom = hit.GetComponentInParent<HarvestableMushroom>();
+                }
+
+                if (mushroom == null)
+                {
+                    continue;
+                }
+
+                float distance = Vector2.Distance(world, mushroom.transform.position);
+                if (distance < nearest)
+                {
+                    nearest = distance;
+                    best = mushroom;
+                }
+            }
+
+            best?.Harvest();
         }
 
         private void TrySpawnMushroom()
@@ -214,5 +248,3 @@ namespace Mini4.Economy
         }
     }
 }
-
-

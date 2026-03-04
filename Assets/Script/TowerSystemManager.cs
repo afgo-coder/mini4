@@ -18,6 +18,7 @@ namespace Mini4.Tower
             public int goldCost;
             public float baseAttack;
             public float hp;
+            public float range;
             public GameObject prefab;
         }
 
@@ -33,12 +34,12 @@ namespace Mini4.Tower
         [SerializeField]
         private TowerCost[] attackTowerCosts = new TowerCost[]
         {
-            new TowerCost { type = AttackTowerType.Archer, goldCost = 2, baseAttack = 10f, hp = 40f },
-            new TowerCost { type = AttackTowerType.Cannon, goldCost = 4, baseAttack = 16f, hp = 60f },
-            new TowerCost { type = AttackTowerType.Crossbow, goldCost = 5, baseAttack = 18f, hp = 50f },
-            new TowerCost { type = AttackTowerType.IceWizard, goldCost = 6, baseAttack = 14f, hp = 45f },
-            new TowerCost { type = AttackTowerType.Lightning, goldCost = 6, baseAttack = 14f, hp = 45f },
-            new TowerCost { type = AttackTowerType.PoisonWizard, goldCost = 6, baseAttack = 14f, hp = 45f },
+            new TowerCost { type = AttackTowerType.Archer, goldCost = 2, baseAttack = 10f, hp = 40f, range = 3.0f },
+            new TowerCost { type = AttackTowerType.Cannon, goldCost = 4, baseAttack = 16f, hp = 60f, range = 2.5f },
+            new TowerCost { type = AttackTowerType.Crossbow, goldCost = 5, baseAttack = 18f, hp = 50f, range = 3.4f },
+            new TowerCost { type = AttackTowerType.IceWizard, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.7f },
+            new TowerCost { type = AttackTowerType.Lightning, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.8f },
+            new TowerCost { type = AttackTowerType.PoisonWizard, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.9f },
         };
 
         // index 1~5 »ç¿ë
@@ -62,9 +63,66 @@ namespace Mini4.Tower
             OnPopulationChanged?.Invoke(UsedPopulation, TotalPopulation);
         }
 
+        public bool CanBuildPopulationTower()
+        {
+            return economyManager != null && economyManager.Gold >= populationTowerGoldCost;
+        }
+
+        public bool CanBuildAttackTower(AttackTowerType type)
+        {
+            if (economyManager == null || FreePopulation < 1 || !_costMap.TryGetValue(type, out TowerCost cost))
+            {
+                return false;
+            }
+
+            return economyManager.Gold >= cost.goldCost;
+        }
+
+        public GameObject GetAttackTowerPrefab(AttackTowerType type)
+        {
+            return _costMap.TryGetValue(type, out TowerCost cost) ? cost.prefab : null;
+        }
+
+        public bool TryGetTowerRangeByType(AttackTowerType type, out float range)
+        {
+            if (_costMap.TryGetValue(type, out TowerCost cost))
+            {
+                range = cost.range;
+                return true;
+            }
+
+            range = 0f;
+            return false;
+        }
+
+        public bool TryGetUpgradePreview(TowerInstance target, out int nextLevel, out int cost, out float add, out float percent, out float successRate)
+        {
+            nextLevel = 0;
+            cost = 0;
+            add = 0f;
+            percent = 0f;
+            successRate = 0f;
+            if (target == null)
+            {
+                return false;
+            }
+
+            nextLevel = target.Level + 1;
+            if (nextLevel > 5)
+            {
+                return false;
+            }
+
+            cost = UpgradeCost[nextLevel];
+            add = UpgradeAdd[nextLevel];
+            percent = UpgradePercent[nextLevel];
+            successRate = UpgradeSuccessRate[nextLevel];
+            return true;
+        }
+
         public bool TryBuildPopulationTower()
         {
-            if (economyManager == null)
+            if (!CanBuildPopulationTower())
             {
                 return false;
             }
@@ -82,12 +140,7 @@ namespace Mini4.Tower
         public bool TryBuildAttackTower(AttackTowerType type, Vector3 position, Quaternion rotation, Transform parent, out TowerInstance instance)
         {
             instance = null;
-            if (economyManager == null || !_costMap.TryGetValue(type, out TowerCost cost))
-            {
-                return false;
-            }
-
-            if (FreePopulation < 1)
+            if (!CanBuildAttackTower(type) || !_costMap.TryGetValue(type, out TowerCost cost))
             {
                 return false;
             }
@@ -119,9 +172,20 @@ namespace Mini4.Tower
                 go.AddComponent<AttackTowerMarker>();
             }
 
-            if (go.GetComponent<TowerAutoAttack>() == null)
+            TowerAutoAttack autoAttack = go.GetComponent<TowerAutoAttack>();
+            if (autoAttack == null)
             {
-                go.AddComponent<TowerAutoAttack>();
+                autoAttack = go.AddComponent<TowerAutoAttack>();
+            }
+
+            autoAttack.SetAttackRange(cost.range);
+
+            Collider2D clickCollider = go.GetComponent<Collider2D>();
+            if (clickCollider == null)
+            {
+                BoxCollider2D box = go.AddComponent<BoxCollider2D>();
+                box.size = new Vector2(0.8f, 0.8f);
+                box.isTrigger = false;
             }
 
             UsedPopulation += 1;
@@ -168,6 +232,3 @@ namespace Mini4.Tower
         }
     }
 }
-
-
-
