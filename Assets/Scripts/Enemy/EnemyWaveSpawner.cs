@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Mini4.Combat;
 using UnityEngine;
@@ -7,7 +7,8 @@ using UnityEngine.Tilemaps;
 namespace Mini4.Enemy
 {
     /// <summary>
-    /// 메인카메라 밖 + Road 타일 외부 위치에만 적 스폰.
+    /// Spawns enemies outside camera and outside road area.
+    /// Spawn starts only after the game run begins.
     /// </summary>
     public class EnemyWaveSpawner : MonoBehaviour
     {
@@ -17,7 +18,7 @@ namespace Mini4.Enemy
         [SerializeField] private Tilemap roadTilemap;
         [SerializeField] private Collider2D worldBoundsCollider;
 
-        [Header("Enemy Prefabs (5개 이상 권장)")]
+        [Header("Enemy Prefabs (5+ recommended)")]
         [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
 
         [Header("Spawn")]
@@ -37,9 +38,17 @@ namespace Mini4.Enemy
             if (gameManager != null)
             {
                 gameManager.OnEnemyStageChanged += HandleStageChanged;
-            }
+                gameManager.OnRunStarted += HandleRunStarted;
 
-            _spawnRoutine = StartCoroutine(SpawnLoop());
+                if (gameManager.IsRunStarted)
+                {
+                    StartSpawnLoop();
+                }
+            }
+            else
+            {
+                StartSpawnLoop();
+            }
         }
 
         private void OnDisable()
@@ -47,12 +56,29 @@ namespace Mini4.Enemy
             if (gameManager != null)
             {
                 gameManager.OnEnemyStageChanged -= HandleStageChanged;
+                gameManager.OnRunStarted -= HandleRunStarted;
             }
 
             if (_spawnRoutine != null)
             {
                 StopCoroutine(_spawnRoutine);
+                _spawnRoutine = null;
             }
+        }
+
+        private void HandleRunStarted()
+        {
+            StartSpawnLoop();
+        }
+
+        private void StartSpawnLoop()
+        {
+            if (_spawnRoutine != null)
+            {
+                return;
+            }
+
+            _spawnRoutine = StartCoroutine(SpawnLoop());
         }
 
         private void HandleStageChanged(int stage)
@@ -64,15 +90,15 @@ namespace Mini4.Enemy
         {
             while (true)
             {
+                float interval = baseSpawnInterval * Mathf.Pow(spawnIntervalScalePerStage, _currentStage - 1);
+                interval = Mathf.Max(0.6f, interval);
+                yield return new WaitForSeconds(interval);
+
                 int spawnCount = baseSpawnCountPerWave + (_currentStage - 1);
                 for (int i = 0; i < spawnCount; i++)
                 {
                     SpawnOne();
                 }
-
-                float interval = baseSpawnInterval * Mathf.Pow(spawnIntervalScalePerStage, _currentStage - 1);
-                interval = Mathf.Max(0.6f, interval);
-                yield return new WaitForSeconds(interval);
             }
         }
 
@@ -156,9 +182,9 @@ namespace Mini4.Enemy
                 return false;
             }
 
-            // 화면 내부 좌표(0~1 범위)는 전부 제외
             bool insideView = viewport.x >= 0f && viewport.x <= 1f && viewport.y >= 0f && viewport.y <= 1f;
             return !insideView;
         }
     }
 }
+

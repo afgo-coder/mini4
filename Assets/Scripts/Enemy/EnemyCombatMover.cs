@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Mini4.Enemy
 {
     /// <summary>
-    /// 성을 추적하되 주변 공격타워가 먼저 보이면 공격.
+    /// ?�을 추적?�되 주�? 공격?�?��? 먼�? 보이�?공격.
     /// </summary>
     public class EnemyCombatMover : MonoBehaviour
     {
@@ -54,7 +54,7 @@ namespace Mini4.Enemy
 
         private void TryCacheCastle()
         {
-            _castle = FindObjectOfType<CastleHealth>();
+            _castle = FindFirstObjectByType<CastleHealth>();
             if (_castle != null)
             {
                 return;
@@ -80,7 +80,7 @@ namespace Mini4.Enemy
 
         private HealthEntity SelectTarget()
         {
-            AttackTowerMarker[] towers = FindObjectsOfType<AttackTowerMarker>();
+            AttackTowerMarker[] towers = FindObjectsByType<AttackTowerMarker>(FindObjectsSortMode.None);
             AttackTowerMarker nearestTower = null;
             float nearestDist = float.MaxValue;
             foreach (AttackTowerMarker tower in towers)
@@ -123,3 +123,4 @@ namespace Mini4.Enemy
         }
     }
 }
+

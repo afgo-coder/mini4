@@ -690,7 +690,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 297046386}
+      - m_Target: {fileID: 2105192601}
         m_TargetAssemblyTypeName: Mini4.UI.TowerBuildPanelUI, Assembly-CSharp
         m_MethodName: SelectCrossbow
         m_Mode: 1
@@ -797,7 +797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd2b4264ce1c8d46b9b0abc9e430c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mini4.UI.TowerBuildPanelUI
-  placementManager: {fileID: 1345987171}
 --- !u!114 &297046387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6985,7 +6984,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 297046386}
+      - m_Target: {fileID: 2105192601}
         m_TargetAssemblyTypeName: Mini4.UI.TowerBuildPanelUI, Assembly-CSharp
         m_MethodName: SelectIceWizard
         m_Mode: 1
@@ -9881,12 +9880,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1345987168}
-  - component: {fileID: 1345987167}
-  - component: {fileID: 1345987166}
-  - component: {fileID: 1345987165}
+  - component: {fileID: 1345987172}
   - component: {fileID: 1345987170}
+  - component: {fileID: 1345987174}
   - component: {fileID: 1345987169}
   - component: {fileID: 1345987171}
+  - component: {fileID: 1345987173}
+  - component: {fileID: 1345987175}
   m_Layer: 0
   m_Name: GameSystems
   m_TagString: Untagged
@@ -9894,62 +9894,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1345987165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345987164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f03d4e00a842cc34ea23f151c00acfd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Enemy.EnemyWaveSpawner
-  gameManager: {fileID: 1345987167}
-  mainCamera: {fileID: 519420031}
-  roadTilemap: {fileID: 599289178}
-  worldBoundsCollider: {fileID: 623732103}
-  enemyPrefabs:
-  - {fileID: 3648530582117472135, guid: f180928ddc566d243b8c2f0176649f26, type: 3}
-  - {fileID: 2008367716733711663, guid: 648d7ec5d713b0c4088e86627c491dd8, type: 3}
-  - {fileID: 2512787774871362982, guid: d3c398394fd8ac748811b45d8fe6c85e, type: 3}
-  - {fileID: 601763717663335201, guid: 766b35fd06f81f848920707fba8af358, type: 3}
-  - {fileID: 5497729846590826223, guid: b06716fc9c75edd4486be8172c02694b, type: 3}
-  baseSpawnInterval: 4
-  baseSpawnCountPerWave: 1
-  spawnIntervalScalePerStage: 0.9
-  maxTryPerSpawn: 40
-  enemyBaseHp: 20
---- !u!114 &1345987166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345987164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b87770649b31bb4d9fca74c996f63a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Economy.EconomyManager
-  startingGold: 20
-  passiveIncomeAmount: 1
-  passiveIncomeIntervalSeconds: 3
---- !u!114 &1345987167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345987164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66f04746665b95e4183586be74c73b0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Core.MiniProjectGameManager
-  playTimeSeconds: 300
-  stageIntervalSeconds: 60
 --- !u!4 &1345987168
 Transform:
   m_ObjectHideFlags: 0
@@ -9974,10 +9918,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1345987164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21450e39047d5224e99d161dd096e7c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e18fba748b55ac4ab98a5ff247444fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mini4.Tower.TowerSystemManager
-  economyManager: {fileID: 1345987166}
+  economyManager: {fileID: 1345987170}
   startingPopulation: 0
   populationTowerGoldCost: 10
   populationProvidedPerTower: 10
@@ -9989,34 +9933,34 @@ MonoBehaviour:
     range: 2.5
     prefab: {fileID: 6872270880278813395, guid: 697692f0e12a87c498b9dbebd2a65e4f, type: 3}
   - type: 2
-    goldCost: 5
+    goldCost: 4
     baseAttack: 14
-    hp: 50
-    range: 4
-    prefab: {fileID: 2918212015571260835, guid: 549e170f3bb90894ca4602e4fcfd139d, type: 3}
+    hp: 60
+    range: 3.5
+    prefab: {fileID: 1036464231056120700, guid: 2262500d1a526f94fab8cba76033d295, type: 3}
   - type: 1
     goldCost: 5
-    baseAttack: 18
-    hp: 60
-    range: 6
-    prefab: {fileID: 1036464231056120700, guid: 2262500d1a526f94fab8cba76033d295, type: 3}
+    baseAttack: 16
+    hp: 50
+    range: 4.5
+    prefab: {fileID: 2918212015571260835, guid: 549e170f3bb90894ca4602e4fcfd139d, type: 3}
   - type: 3
     goldCost: 6
     baseAttack: 12
     hp: 45
-    range: 8
+    range: 6
     prefab: {fileID: 6814894694227274241, guid: 03513fd09fe4bd749a1fb606fc1bfc4e, type: 3}
   - type: 4
     goldCost: 6
     baseAttack: 10
     hp: 45
-    range: 10
+    range: 8
     prefab: {fileID: 4019558142198904980, guid: 30d80625996e9764f99f678dd65910cf, type: 3}
   - type: 5
     goldCost: 6
-    baseAttack: 16
+    baseAttack: 14
     hp: 45
-    range: 6
+    range: 2.5
     prefab: {fileID: 4427490050997430971, guid: 9723f168fe2edc14aac83a58da3dc7e0, type: 3}
 --- !u!114 &1345987170
 MonoBehaviour:
@@ -10027,25 +9971,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1345987164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 247a88e3d8aada24698d738e1a517044, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d18f4b7a8971284d96df069902975b3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Economy.MushroomFieldManager
-  economyManager: {fileID: 1345987166}
-  castleCenter: {fileID: 2141329596}
-  roadTilemap: {fileID: 599289178}
-  towerPlacementManager: {fileID: 1345987171}
-  mainCamera: {fileID: 519420031}
-  insideGroundCollider: {fileID: 958937208}
-  mushroom1Prefab: {fileID: 3944464995722217566, guid: b9b5fb8753d72ae4fbace19f3e9df5d7, type: 3}
-  mushroom2Prefab: {fileID: 2681765725373018257, guid: 1de2ca137e229fa4386b1173857497ad, type: 3}
-  mushroom1Gold: 5
-  mushroom2Gold: 8
-  maxMushrooms: 15
-  spawnIntervalSeconds: 2
-  minRadiusFromCastle: 1.5
-  maxRadiusFromCastle: 6
-  maxTryPerSpawn: 24
-  minDistanceBetweenMushrooms: 0.6
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Economy.EconomyManager
+  startingGold: 20
+  passiveIncomeAmount: 1
+  passiveIncomeIntervalSeconds: 3
 --- !u!114 &1345987171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10055,7 +9986,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1345987164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87adbab68a5a3f74fa37918407d7dd2b, type: 3}
+  m_Script: {fileID: 11500000, guid: 22e3368c367e8a94da94f32c4c345abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mini4.Tower.TowerPlacementManager
   mainCamera: {fileID: 519420031}
@@ -10070,6 +10001,92 @@ MonoBehaviour:
   previewZOffset: -0.05
   placementMessageText: {fileID: 490965950}
   placementMessageSeconds: 1.1
+--- !u!114 &1345987172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345987164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941dbee40d8ed5d488c953b9bd4118a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Core.MiniProjectGameManager
+  warmupSeconds: 15
+  playTimeSeconds: 300
+  stageIntervalSeconds: 60
+--- !u!114 &1345987173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345987164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f91354ea810c4f45ab0e86a554b4f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Enemy.EnemyWaveSpawner
+  gameManager: {fileID: 1345987172}
+  mainCamera: {fileID: 519420031}
+  roadTilemap: {fileID: 599289178}
+  worldBoundsCollider: {fileID: 623732103}
+  enemyPrefabs:
+  - {fileID: 3648530582117472135, guid: f180928ddc566d243b8c2f0176649f26, type: 3}
+  - {fileID: 2008367716733711663, guid: 648d7ec5d713b0c4088e86627c491dd8, type: 3}
+  - {fileID: 5497729846590826223, guid: b06716fc9c75edd4486be8172c02694b, type: 3}
+  - {fileID: 2512787774871362982, guid: d3c398394fd8ac748811b45d8fe6c85e, type: 3}
+  - {fileID: 601763717663335201, guid: 766b35fd06f81f848920707fba8af358, type: 3}
+  baseSpawnInterval: 4
+  baseSpawnCountPerWave: 1
+  spawnIntervalScalePerStage: 0.9
+  maxTryPerSpawn: 60
+  enemyBaseHp: 20
+--- !u!114 &1345987174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345987164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b0ebd45bedb9e48bc309791f98a5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Economy.MushroomFieldManager
+  economyManager: {fileID: 1345987170}
+  castleCenter: {fileID: 2141329596}
+  roadTilemap: {fileID: 599289178}
+  towerPlacementManager: {fileID: 1345987171}
+  mainCamera: {fileID: 519420031}
+  insideGroundCollider: {fileID: 958937208}
+  mushroom1Prefab: {fileID: 3944464995722217566, guid: b9b5fb8753d72ae4fbace19f3e9df5d7, type: 3}
+  mushroom2Prefab: {fileID: 2681765725373018257, guid: 1de2ca137e229fa4386b1173857497ad, type: 3}
+  mushroom1Gold: 5
+  mushroom2Gold: 8
+  maxMushrooms: 15
+  spawnIntervalSeconds: 2
+  minRadiusFromCastle: 1.5
+  maxRadiusFromCastle: 6
+  maxTryPerSpawn: 40
+  minDistanceBetweenMushrooms: 0.6
+--- !u!114 &1345987175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345987164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bd9c6d19ad36b04e83ff4208a021edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Tower.TowerRangeOverlay
+  towerAutoAttack: {fileID: 0}
+  overlayColor: {r: 0.1, g: 0.8, b: 1, a: 0.2}
+  yOffset: -0.25
+  sortingOrder: 1
 --- !u!1 &1350186450
 GameObject:
   m_ObjectHideFlags: 0
@@ -10780,7 +10797,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 297046386}
+      - m_Target: {fileID: 2105192601}
         m_TargetAssemblyTypeName: Mini4.UI.TowerBuildPanelUI, Assembly-CSharp
         m_MethodName: SelectPopulationTower
         m_Mode: 1
@@ -11302,7 +11319,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 297046386}
+      - m_Target: {fileID: 2105192601}
         m_TargetAssemblyTypeName: Mini4.UI.TowerBuildPanelUI, Assembly-CSharp
         m_MethodName: SelectLightning
         m_Mode: 1
@@ -11436,7 +11453,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 297046386}
+      - m_Target: {fileID: 2105192601}
         m_TargetAssemblyTypeName: Mini4.UI.TowerBuildPanelUI, Assembly-CSharp
         m_MethodName: SelectArcher
         m_Mode: 1
@@ -11570,7 +11587,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 297046386}
+      - m_Target: {fileID: 2105192601}
         m_TargetAssemblyTypeName: Mini4.UI.TowerBuildPanelUI, Assembly-CSharp
         m_MethodName: SelectPoisonWizard
         m_Mode: 1
@@ -12053,7 +12070,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 297046386}
+      - m_Target: {fileID: 2105192601}
         m_TargetAssemblyTypeName: Mini4.UI.TowerBuildPanelUI, Assembly-CSharp
         m_MethodName: SelectCannon
         m_Mode: 1
@@ -12348,6 +12365,9 @@ GameObject:
   - component: {fileID: 2105192594}
   - component: {fileID: 2105192598}
   - component: {fileID: 2105192599}
+  - component: {fileID: 2105192602}
+  - component: {fileID: 2105192601}
+  - component: {fileID: 2105192600}
   m_Layer: 5
   m_Name: HUDUI
   m_TagString: Untagged
@@ -12458,14 +12478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b019ca3094c19499237968478c6be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mini4.UI.GameHudPresenter
-  gameManager: {fileID: 1345987167}
-  economyManager: {fileID: 1345987166}
-  towerSystemManager: {fileID: 1345987169}
-  timeText: {fileID: 851188280}
-  stageText: {fileID: 796411347}
-  goldText: {fileID: 556105158}
-  populationText: {fileID: 848277376}
-  resultText: {fileID: 1841516831}
 --- !u!114 &2105192599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12478,8 +12490,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97976d41f0e7cb843a405094e177ef2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mini4.UI.TowerInfoPanelUI
+--- !u!114 &2105192600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105192593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b6bc313efe55949862f76eed7d4c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.UI.TowerInfoPanelUI
   towerSystemManager: {fileID: 1345987169}
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 519420031}
   towerClickMask:
     serializedVersion: 2
     m_Bits: 51
@@ -12491,13 +12515,46 @@ MonoBehaviour:
   upgradeButton: {fileID: 1388253001}
   confirmPanel: {fileID: 1568907652}
   confirmHeaderText: {fileID: 751641143}
-  confirmTowerImage: {fileID: 2018609443}
+  confirmTowerImage: {fileID: 1622604414}
   confirmStatText: {fileID: 1404772846}
   confirmExplainText: {fileID: 941336356}
   confirmYesButton: {fileID: 1573876412}
   confirmNoButton: {fileID: 1068597761}
   towerBackgroundRect: {fileID: 0}
   confirmBackgroundRect: {fileID: 0}
+--- !u!114 &2105192601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105192593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204bb4cc94207e4428783b594f76602b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.UI.TowerBuildPanelUI
+  placementManager: {fileID: 1345987171}
+--- !u!114 &2105192602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105192593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 844d6639b89547a48b95f8f3d11f758d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.UI.GameHudPresenter
+  gameManager: {fileID: 1345987172}
+  economyManager: {fileID: 1345987170}
+  towerSystemManager: {fileID: 1345987169}
+  timeText: {fileID: 851188280}
+  stageText: {fileID: 796411347}
+  goldText: {fileID: 556105158}
+  populationText: {fileID: 848277376}
+  resultText: {fileID: 1841516831}
 --- !u!1 &2141329593
 GameObject:
   m_ObjectHideFlags: 0
@@ -12510,6 +12567,8 @@ GameObject:
   - component: {fileID: 2141329595}
   - component: {fileID: 2141329594}
   - component: {fileID: 2141329597}
+  - component: {fileID: 2141329599}
+  - component: {fileID: 2141329598}
   m_Layer: 0
   m_Name: Castle
   m_TagString: Castle
@@ -12661,6 +12720,36 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.6, y: 1.9}
   m_EdgeRadius: 0
+--- !u!114 &2141329598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141329593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5f118f43b71d143a242ce65ca9fb33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Combat.HealthEntity
+  maxHp: 20
+  blinkRenderer: {fileID: 0}
+  blinkColor: {r: 1, g: 0.45, b: 0.45, a: 1}
+  blinkDuration: 0.08
+  hpBarFill: {fileID: 0}
+--- !u!114 &2141329599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141329593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e642f08be1816d4d8f079e2654dc703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Combat.CastleHealth
+  healthEntity: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

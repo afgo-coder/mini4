@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Mini4.Tower
 {
     /// <summary>
-    /// 타워 건설(골드/인구) 및 강화 확률/비용 규칙 관리.
+    /// ?�??건설(골드/?�구) �?강화 ?�률/비용 규칙 관�?
     /// </summary>
     public class TowerSystemManager : MonoBehaviour
     {
@@ -33,15 +33,15 @@ namespace Mini4.Tower
         [Header("Attack Tower Costs")]
         [SerializeField] private TowerCost[] attackTowerCosts = new TowerCost[]
         {
-            new TowerCost { type = AttackTowerType.Archer, goldCost = 2, baseAttack = 10f, hp = 40f, range = 3.0f },
-            new TowerCost { type = AttackTowerType.Cannon, goldCost = 4, baseAttack = 16f, hp = 60f, range = 2.5f },
-            new TowerCost { type = AttackTowerType.Crossbow, goldCost = 5, baseAttack = 18f, hp = 50f, range = 3.4f },
-            new TowerCost { type = AttackTowerType.IceWizard, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.7f },
-            new TowerCost { type = AttackTowerType.Lightning, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.8f },
-            new TowerCost { type = AttackTowerType.PoisonWizard, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.9f },
+            new TowerCost { type = AttackTowerType.Archer, goldCost = 2, baseAttack = 10f, hp = 40f, range = 3.0f, prefab = null },
+            new TowerCost { type = AttackTowerType.Cannon, goldCost = 4, baseAttack = 16f, hp = 60f, range = 2.5f, prefab = null },
+            new TowerCost { type = AttackTowerType.Crossbow, goldCost = 5, baseAttack = 18f, hp = 50f, range = 3.4f, prefab = null },
+            new TowerCost { type = AttackTowerType.IceWizard, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.7f, prefab = null },
+            new TowerCost { type = AttackTowerType.Lightning, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.8f, prefab = null },
+            new TowerCost { type = AttackTowerType.PoisonWizard, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.9f, prefab = null },
         };
 
-        // index 1~5 사용
+        // index 1~5 ?�용
         private static readonly float[] UpgradeSuccessRate = { 0f, 0.9f, 0.8f, 0.6f, 0.4f, 0.3f };
         private static readonly int[] UpgradeCost = { 0, 1, 2, 3, 5, 7 };
         private static readonly float[] UpgradeAdd = { 0f, 1f, 2f, 4f, 6f, 10f };
@@ -179,6 +179,16 @@ namespace Mini4.Tower
 
             autoAttack.SetAttackRange(cost.range);
 
+            if (go.GetComponent<TowerRangeOverlay>() == null)
+            {
+                go.AddComponent<TowerRangeOverlay>();
+            }
+
+            if (go.GetComponent<TowerHealthBarUI>() == null)
+            {
+                go.AddComponent<TowerHealthBarUI>();
+            }
+
             Collider2D clickCollider = go.GetComponent<Collider2D>();
             if (clickCollider == null)
             {
@@ -218,6 +228,9 @@ namespace Mini4.Tower
             }
 
             target.ApplyUpgrade(UpgradeAdd[nextLevel], UpgradePercent[nextLevel]);
+
+            TotalPopulation += 1;
+            OnPopulationChanged?.Invoke(UsedPopulation, TotalPopulation);
             return true;
         }
 
@@ -231,3 +244,8 @@ namespace Mini4.Tower
         }
     }
 }
+
+
+
+
+

@@ -54,7 +54,7 @@ namespace Mini4.Tower
 
         private EnemyTag FindNearestEnemy()
         {
-            EnemyTag[] enemies = FindObjectsOfType<EnemyTag>();
+            EnemyTag[] enemies = FindObjectsByType<EnemyTag>(FindObjectsSortMode.None);
             EnemyTag result = null;
             float best = float.MaxValue;
             foreach (EnemyTag enemy in enemies)
@@ -78,3 +78,4 @@ namespace Mini4.Tower
         }
     }
 }
+

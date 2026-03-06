@@ -4,8 +4,8 @@ using UnityEngine;
 namespace Mini4.UI
 {
     /// <summary>
-    /// 우하단 타워 UI 버튼과 배치 매니저 연결용.
-    /// 버튼 OnClick에 아래 public 메서드를 연결.
+    /// ?�하???�??UI 버튼�?배치 매니?� ?�결??
+    /// 버튼 OnClick???�래 public 메서?��? ?�결.
     /// </summary>
     public class TowerBuildPanelUI : MonoBehaviour
     {
@@ -15,7 +15,7 @@ namespace Mini4.UI
         {
             if (placementManager == null)
             {
-                placementManager = FindObjectOfType<TowerPlacementManager>();
+                placementManager = FindFirstObjectByType<TowerPlacementManager>();
             }
         }
 
@@ -29,3 +29,4 @@ namespace Mini4.UI
         public void CancelBuild() => placementManager?.CancelBuildMode();
     }
 }
+

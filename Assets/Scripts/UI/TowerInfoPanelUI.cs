@@ -11,8 +11,8 @@ using UnityEngine.InputSystem;
 namespace Mini4.UI
 {
     /// <summary>
-    /// 설치된 타워 클릭 시 정보/강화 확인 UI를 표시.
-    /// TowerUI / ConfirmUI를 번갈아 켜는 전환 흐름.
+    /// Shows tower info/upgrade UI by click.
+    /// Closes when clicking outside TowerUI/ConfirmUI background.
     /// </summary>
     public class TowerInfoPanelUI : MonoBehaviour
     {
@@ -45,12 +45,13 @@ namespace Mini4.UI
         [SerializeField] private RectTransform confirmBackgroundRect;
 
         private TowerInstance _selectedTower;
+        private TowerRangeOverlay _selectedRangeOverlay;
 
         private void Awake()
         {
             if (towerSystemManager == null)
             {
-                towerSystemManager = FindObjectOfType<TowerSystemManager>();
+                towerSystemManager = FindFirstObjectByType<TowerSystemManager>();
             }
 
             if (mainCamera == null)
@@ -63,7 +64,6 @@ namespace Mini4.UI
                 upgradeButton.onClick.AddListener(OpenUpgradeConfirm);
             }
 
-            // 미연결 상태 자동 보정 (권장 하이어라키: TowerUI / ConfirmUI)
             if (panelRoot == null)
             {
                 Transform t = transform.Find("TowerUI");
@@ -88,7 +88,6 @@ namespace Mini4.UI
                 confirmBackgroundRect = t != null ? t.GetComponent<RectTransform>() : null;
             }
 
-            // ConfirmUI도 TowerUI와 동일한 구조(헤더/스탯/이미지/설명/Yes/No)를 자동 참조
             if (confirmPanel != null)
             {
                 if (confirmHeaderText == null)
@@ -155,6 +154,7 @@ namespace Mini4.UI
         private void OnDisable()
         {
             TowerInstance.OnTowerClicked -= HandleTowerClicked;
+            SetSelectedRangeOverlay(null);
         }
 
         private void Update()
@@ -195,10 +195,10 @@ namespace Mini4.UI
         public void CloseTowerInfo()
         {
             _selectedTower = null;
+            SetSelectedRangeOverlay(null);
             ShowOnlyTowerPanel(false);
             ShowOnlyConfirmPanel(false);
         }
-
 
         private bool TryClosePanelOnOutsideClick()
         {
@@ -303,6 +303,7 @@ namespace Mini4.UI
         private void HandleTowerClicked(TowerInstance tower)
         {
             _selectedTower = tower;
+            SetSelectedRangeOverlay(tower != null ? tower.GetComponent<TowerRangeOverlay>() : null);
             ShowOnlyConfirmPanel(false);
             ShowOnlyTowerPanel(tower != null);
             RefreshSelectedTowerInfo();
@@ -382,7 +383,7 @@ namespace Mini4.UI
 
                 if (confirmExplainText != null)
                 {
-                    confirmExplainText.text = "이미 최대 강화(+5)입니다.";
+                    confirmExplainText.text = "�̹� �ִ� ��ȭ(+5)�Դϴ�.";
                 }
 
                 ShowOnlyTowerPanel(false);
@@ -435,6 +436,19 @@ namespace Mini4.UI
             }
         }
 
+        private void SetSelectedRangeOverlay(TowerRangeOverlay overlay)
+        {
+            if (_selectedRangeOverlay != null)
+            {
+                _selectedRangeOverlay.SetVisible(false);
+            }
+
+            _selectedRangeOverlay = overlay;
+            if (_selectedRangeOverlay != null)
+            {
+                _selectedRangeOverlay.SetVisible(true);
+            }
+        }
 
         private static bool IsInsideBackgroundRect(RectTransform rect, Vector2 screenPosition)
         {
@@ -509,3 +523,4 @@ namespace Mini4.UI
         }
     }
 }
+

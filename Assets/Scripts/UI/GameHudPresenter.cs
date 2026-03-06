@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Mini4.UI
 {
     /// <summary>
-    /// GameManager/Economy/Tower 이벤트를 HUD 텍스트에 연결.
+    /// Connects GameManager/Economy/Tower events to HUD text.
     /// </summary>
     public class GameHudPresenter : MonoBehaviour
     {
@@ -27,8 +27,17 @@ namespace Mini4.UI
             if (gameManager != null)
             {
                 gameManager.OnTimeUpdated += HandleTimeUpdated;
+                gameManager.OnWarmupUpdated += HandleWarmupUpdated;
                 gameManager.OnEnemyStageChanged += HandleStageChanged;
+                gameManager.OnRunStarted += HandleRunStarted;
                 gameManager.OnGameClear += HandleGameClear;
+
+                HandleTimeUpdated(gameManager.RemainingTime);
+                HandleWarmupUpdated(gameManager.WarmupRemaining);
+                if (gameManager.IsRunStarted)
+                {
+                    HandleRunStarted();
+                }
             }
 
             if (economyManager != null)
@@ -49,7 +58,9 @@ namespace Mini4.UI
             if (gameManager != null)
             {
                 gameManager.OnTimeUpdated -= HandleTimeUpdated;
+                gameManager.OnWarmupUpdated -= HandleWarmupUpdated;
                 gameManager.OnEnemyStageChanged -= HandleStageChanged;
+                gameManager.OnRunStarted -= HandleRunStarted;
                 gameManager.OnGameClear -= HandleGameClear;
             }
 
@@ -75,6 +86,31 @@ namespace Mini4.UI
             int minutes = total / 60;
             int seconds = total % 60;
             timeText.text = $"Time {minutes:00}:{seconds:00}";
+        }
+
+        private void HandleWarmupUpdated(float warmupRemaining)
+        {
+            if (resultText == null)
+            {
+                return;
+            }
+
+            int seconds = Mathf.CeilToInt(warmupRemaining);
+            if (seconds > 0)
+            {
+                resultText.text = $"Start In {seconds:00}";
+                resultText.gameObject.SetActive(true);
+            }
+        }
+
+        private void HandleRunStarted()
+        {
+            if (resultText == null)
+            {
+                return;
+            }
+
+            resultText.gameObject.SetActive(false);
         }
 
         private void HandleStageChanged(int stage)
@@ -104,7 +140,7 @@ namespace Mini4.UI
                 return;
             }
 
-            populationText.text = $"Pop {used}/{total}";
+            populationText.text = $"Meal {used}/{total}";
         }
 
         private void HandleGameClear()
@@ -119,3 +155,5 @@ namespace Mini4.UI
         }
     }
 }
+
+

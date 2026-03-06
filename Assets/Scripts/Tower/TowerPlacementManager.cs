@@ -48,8 +48,12 @@ namespace Mini4.Tower
         private SpriteRenderer _previewRenderer;
         private GameObject _cellOverlayObject;
         private SpriteRenderer _cellOverlayRenderer;
+        private GameObject _rangeOverlayObject;
+        private SpriteRenderer _rangeOverlayRenderer;
         private Coroutine _messageRoutine;
         private Sprite _squareSprite;
+        private Sprite _circleSprite;
+        private float _previewAttackRange;
 
         public bool IsPopulationTowerCell(Vector3Int cell) => _populationTowerCells.Contains(cell);
 
@@ -100,12 +104,19 @@ namespace Mini4.Tower
         {
             _mode = BuildMode.Attack;
             _selectedAttackType = (AttackTowerType)attackType;
+            _previewAttackRange = 0f;
+            if (towerSystemManager != null)
+            {
+                towerSystemManager.TryGetTowerRangeByType(_selectedAttackType, out _previewAttackRange);
+            }
+
             CreatePreviewForCurrentMode();
         }
 
         public void SelectPopulationTower()
         {
             _mode = BuildMode.Population;
+            _previewAttackRange = 0f;
             CreatePreviewForCurrentMode();
         }
 
@@ -125,7 +136,7 @@ namespace Mini4.Tower
             bool isValid = IsCurrentPlacementValid(cell, cellCenter);
             if (!isValid)
             {
-                ShowPlacementMessage("생성가능 위치가 아닙니다!");
+                ShowPlacementMessage("Invalid build position.");
                 return;
             }
 
@@ -133,14 +144,14 @@ namespace Mini4.Tower
             {
                 if (!towerSystemManager.CanBuildAttackTower(_selectedAttackType))
                 {
-                    ShowPlacementMessage("자원 또는 인구가 부족합니다!");
+                    ShowPlacementMessage("Not enough resources or population.");
                     return;
                 }
 
                 Vector3 placePos = cellCenter + new Vector3(0f, attackTowerYOffset, 0f);
                 if (!towerSystemManager.TryBuildAttackTower(_selectedAttackType, placePos, Quaternion.identity, attackTowerParent, out _))
                 {
-                    ShowPlacementMessage("타워 배치에 실패했습니다!");
+                    ShowPlacementMessage("Failed to place tower.");
                     return;
                 }
 
@@ -151,13 +162,13 @@ namespace Mini4.Tower
 
             if (!towerSystemManager.CanBuildPopulationTower())
             {
-                ShowPlacementMessage("골드가 부족합니다!");
+                ShowPlacementMessage("Not enough gold.");
                 return;
             }
 
             if (!towerSystemManager.TryBuildPopulationTower())
             {
-                ShowPlacementMessage("타워 배치에 실패했습니다!");
+                ShowPlacementMessage("Failed to place tower.");
                 return;
             }
 
@@ -226,6 +237,8 @@ namespace Mini4.Tower
                     _previewRenderer.color = valid ? new Color(1f, 1f, 1f, 0.65f) : new Color(1f, 0.5f, 0.5f, 0.65f);
                 }
             }
+
+            UpdateAttackRangeOverlay(cellCenter, valid);
         }
 
         private bool TryGetCellFromScreen(Vector2 screenPosition, out Vector3Int cell, out Vector3 center)
@@ -314,6 +327,20 @@ namespace Mini4.Tower
                 _cellOverlayRenderer.sortingOrder = 100;
                 _cellOverlayObject.transform.localScale = new Vector3(1f, 1f, 1f);
             }
+
+            if (_circleSprite == null)
+            {
+                _circleSprite = BuildCircleSprite();
+            }
+
+            if (_rangeOverlayObject == null)
+            {
+                _rangeOverlayObject = new GameObject("PlacementRangeOverlay");
+                _rangeOverlayRenderer = _rangeOverlayObject.AddComponent<SpriteRenderer>();
+                _rangeOverlayRenderer.sprite = _circleSprite;
+                _rangeOverlayRenderer.sortingOrder = 99;
+                _rangeOverlayRenderer.color = new Color(0.1f, 0.8f, 1f, 0.18f);
+            }
         }
 
         private void HidePlacementVisuals()
@@ -329,6 +356,53 @@ namespace Mini4.Tower
             {
                 _cellOverlayObject.SetActive(false);
             }
+
+            if (_rangeOverlayObject != null)
+            {
+                _rangeOverlayObject.SetActive(false);
+            }
+        }
+
+        private void UpdateAttackRangeOverlay(Vector3 cellCenter, bool isValid)
+        {
+            if (_rangeOverlayObject == null || _rangeOverlayRenderer == null)
+            {
+                return;
+            }
+
+            bool show = _mode == BuildMode.Attack && _previewAttackRange > 0.01f;
+            _rangeOverlayObject.SetActive(show);
+            if (!show)
+            {
+                return;
+            }
+
+            _rangeOverlayObject.transform.position = cellCenter + new Vector3(0f, attackTowerYOffset - 0.25f, 0f);
+            _rangeOverlayObject.transform.localScale = new Vector3(_previewAttackRange * 2f, _previewAttackRange * 2f, 1f);
+            _rangeOverlayRenderer.color = isValid ? new Color(0.1f, 0.8f, 1f, 0.18f) : new Color(1f, 0.3f, 0.3f, 0.18f);
+        }
+
+        private static Sprite BuildCircleSprite()
+        {
+            const int size = 128;
+            Texture2D tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+            tex.filterMode = FilterMode.Bilinear;
+            tex.wrapMode = TextureWrapMode.Clamp;
+
+            float radius = (size - 2f) * 0.5f;
+            Vector2 center = new Vector2((size - 1f) * 0.5f, (size - 1f) * 0.5f);
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float distance = Vector2.Distance(new Vector2(x, y), center);
+                    float alpha = distance <= radius ? 1f : 0f;
+                    tex.SetPixel(x, y, new Color(1f, 1f, 1f, alpha));
+                }
+            }
+
+            tex.Apply();
+            return Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), size);
         }
 
         private void ShowPlacementMessage(string message)
@@ -384,3 +458,4 @@ namespace Mini4.Tower
         }
     }
 }
+
