@@ -794,9 +794,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 297046384}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd2b4264ce1c8d46b9b0abc9e430c10, type: 3}
+  m_Script: {fileID: 11500000, guid: 204bb4cc94207e4428783b594f76602b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mini4.UI.TowerBuildPanelUI
+  placementManager: {fileID: 0}
 --- !u!114 &297046387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9962,6 +9963,8 @@ MonoBehaviour:
     hp: 45
     range: 2.5
     prefab: {fileID: 4427490050997430971, guid: 9723f168fe2edc14aac83a58da3dc7e0, type: 3}
+  <TotalPopulation>k__BackingField: 0
+  <UsedPopulation>k__BackingField: 0
 --- !u!114 &1345987170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9977,6 +9980,8 @@ MonoBehaviour:
   startingGold: 20
   passiveIncomeAmount: 1
   passiveIncomeIntervalSeconds: 3
+  _gold: 0
+  _elapsed: 0
 --- !u!114 &1345987171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10001,6 +10006,17 @@ MonoBehaviour:
   previewZOffset: -0.05
   placementMessageText: {fileID: 490965950}
   placementMessageSeconds: 1.1
+  _mode: 0
+  _selectedAttackType: 0
+  _previewObject: {fileID: 0}
+  _previewRenderer: {fileID: 0}
+  _cellOverlayObject: {fileID: 0}
+  _cellOverlayRenderer: {fileID: 0}
+  _rangeOverlayObject: {fileID: 0}
+  _rangeOverlayRenderer: {fileID: 0}
+  _squareSprite: {fileID: 0}
+  _circleSprite: {fileID: 0}
+  _previewAttackRange: 0
 --- !u!114 &1345987172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10016,6 +10032,12 @@ MonoBehaviour:
   warmupSeconds: 15
   playTimeSeconds: 300
   stageIntervalSeconds: 60
+  _warmupRemaining: 0
+  _remainingTime: 0
+  _currentEnemyStage: 1
+  _elapsedForStage: 0
+  _isRunStarted: 0
+  _isGameEnded: 0
 --- !u!114 &1345987173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10043,6 +10065,7 @@ MonoBehaviour:
   spawnIntervalScalePerStage: 0.9
   maxTryPerSpawn: 60
   enemyBaseHp: 20
+  _currentStage: 1
 --- !u!114 &1345987174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10071,6 +10094,8 @@ MonoBehaviour:
   maxRadiusFromCastle: 6
   maxTryPerSpawn: 40
   minDistanceBetweenMushrooms: 0.6
+  _elapsed: 0
+  _aliveMushrooms: 0
 --- !u!114 &1345987175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12475,9 +12500,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2105192593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b019ca3094c19499237968478c6be4, type: 3}
+  m_Script: {fileID: 11500000, guid: 844d6639b89547a48b95f8f3d11f758d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mini4.UI.GameHudPresenter
+  gameManager: {fileID: 0}
+  economyManager: {fileID: 0}
+  towerSystemManager: {fileID: 0}
+  timeText: {fileID: 0}
+  stageText: {fileID: 0}
+  goldText: {fileID: 0}
+  populationText: {fileID: 0}
+  resultText: {fileID: 0}
 --- !u!114 &2105192599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12487,9 +12520,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 2105192593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97976d41f0e7cb843a405094e177ef2b, type: 3}
+  m_Script: {fileID: 11500000, guid: 15b6bc313efe55949862f76eed7d4c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mini4.UI.TowerInfoPanelUI
+  towerSystemManager: {fileID: 0}
+  mainCamera: {fileID: 0}
+  towerClickMask:
+    serializedVersion: 2
+    m_Bits: 51
+  blockWhenPointerOverUI: 0
+  panelRoot: {fileID: 0}
+  headerText: {fileID: 0}
+  towerImage: {fileID: 0}
+  statText: {fileID: 0}
+  upgradeButton: {fileID: 0}
+  confirmPanel: {fileID: 0}
+  confirmHeaderText: {fileID: 0}
+  confirmTowerImage: {fileID: 0}
+  confirmStatText: {fileID: 0}
+  confirmExplainText: {fileID: 0}
+  confirmYesButton: {fileID: 0}
+  confirmNoButton: {fileID: 0}
+  towerBackgroundRect: {fileID: 0}
+  confirmBackgroundRect: {fileID: 0}
 --- !u!114 &2105192600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12505,7 +12558,6 @@ MonoBehaviour:
   towerSystemManager: {fileID: 1345987169}
   mainCamera: {fileID: 519420031}
   towerClickMask:
-    serializedVersion: 2
     m_Bits: 51
   blockWhenPointerOverUI: 0
   panelRoot: {fileID: 1996404515}
@@ -12522,6 +12574,8 @@ MonoBehaviour:
   confirmNoButton: {fileID: 1068597761}
   towerBackgroundRect: {fileID: 0}
   confirmBackgroundRect: {fileID: 0}
+  _selectedTower: {fileID: 0}
+  _selectedRangeOverlay: {fileID: 0}
 --- !u!114 &2105192601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12734,9 +12788,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Mini4.Combat.HealthEntity
   maxHp: 20
   blinkRenderer: {fileID: 0}
-  blinkColor: {r: 1, g: 0.45, b: 0.45, a: 1}
+  blinkColor:
+    r: 1
+    g: 0.45
+    b: 0.45
+    a: 1
   blinkDuration: 0.08
   hpBarFill: {fileID: 0}
+  <CurrentHp>k__BackingField: 0
 --- !u!114 &2141329599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12763,3 +12822,4 @@ SceneRoots:
   - {fileID: 2105192597}
   - {fileID: 1498976291}
   - {fileID: 1397768941}
+
