@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1863600550556294815}
   - component: {fileID: 1582783936750267637}
   - component: {fileID: -4299245707488749265}
+  - component: {fileID: 9205467494697413079}
   m_Layer: 0
   m_Name: Archer_tower
   m_TagString: Untagged
@@ -138,3 +139,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6666667, y: 0.9583333}
   m_EdgeRadius: 0
+--- !u!114 &9205467494697413079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6872270880278813395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5347024275e49b347ae546a6d3d5b892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Tower.TowerProjectileSource
+  projectilePrefab: {fileID: 1291763437152875292, guid: 661ab179fc6356b43b694f615bc72de9, type: 3}
+  projectileSpawnOffset: {x: 0, y: 0.2, z: 0}

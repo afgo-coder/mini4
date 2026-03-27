@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8812307244698533672}
   - component: {fileID: 7660247515337152391}
   - component: {fileID: -1503071528326368881}
+  - component: {fileID: 3338536784523456490}
   m_Layer: 0
   m_Name: PoisonWizard_tower
   m_TagString: Untagged
@@ -138,3 +139,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6666667, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3338536784523456490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4427490050997430971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5347024275e49b347ae546a6d3d5b892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Tower.TowerProjectileSource
+  projectilePrefab: {fileID: 1497693905893384486, guid: 0c86f8eccfcdcd24593865f4032390d2, type: 3}
+  projectileSpawnOffset: {x: 0, y: 0.2, z: 0}

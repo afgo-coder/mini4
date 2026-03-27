@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6814894694227274241
+--- !u!1 &8114286911659372203
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6063673900789807104}
-  - component: {fileID: 9097823737033119703}
-  - component: {fileID: -8826500496910763497}
-  - component: {fileID: -2155242026609017228}
+  - component: {fileID: 8180600261266169338}
+  - component: {fileID: 7200610210376738229}
+  - component: {fileID: 8464356291948517188}
+  - component: {fileID: 8576766513147206769}
+  - component: {fileID: 2086446061105604809}
   m_Layer: 0
-  m_Name: IceWizard_tower
+  m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6063673900789807104
+--- !u!4 &8180600261266169338
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6814894694227274241}
+  m_GameObject: {fileID: 8114286911659372203}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.83, y: 1.26, z: 0}
+  m_LocalPosition: {x: 2.821, y: 0.337, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &9097823737033119703
+--- !u!212 &7200610210376738229
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6814894694227274241}
+  m_GameObject: {fileID: 8114286911659372203}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -83,23 +84,23 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1219768193615908275, guid: 061797d1d2396094f916224c9490e968, type: 3}
+  m_Sprite: {fileID: 7488236181664933473, guid: 166cb0a7c621a3b4b80f7e1492178cfa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.6666667, y: 1.0833334}
+  m_Size: {x: 0.083333336, y: 0.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &-8826500496910763497
-BoxCollider2D:
+--- !u!58 &8464356291948517188
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6814894694227274241}
+  m_GameObject: {fileID: 8114286911659372203}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -123,33 +124,56 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6666667, y: 1.0833334}
-    newSize: {x: 0.6666667, y: 1.0833334}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.6666667, y: 1.0833334}
-  m_EdgeRadius: 0
---- !u!114 &-2155242026609017228
+  m_Radius: 0.0625
+--- !u!114 &8576766513147206769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6814894694227274241}
+  m_GameObject: {fileID: 8114286911659372203}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5347024275e49b347ae546a6d3d5b892, type: 3}
+  m_Script: {fileID: 11500000, guid: b86eb52eb47d63a4a80ad9f45a09e763, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Tower.TowerProjectileSource
-  projectilePrefab: {fileID: 1646155796359363930, guid: 79a9b88e1f200f04ebf0d2237160ed24, type: 3}
-  projectileSpawnOffset: {x: 0, y: 0.2, z: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Tower.TowerProjectile
+  moveSpeed: 12
+  maxLifetimeSeconds: 3
+  impactDistance: 0.15
+  rotateToVelocity: 1
+  rotationOffsetDegrees: 90
+  spriteRenderer: {fileID: 7200610210376738229}
+  flipX: 0
+  flipY: 0
+--- !u!50 &2086446061105604809
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114286911659372203}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

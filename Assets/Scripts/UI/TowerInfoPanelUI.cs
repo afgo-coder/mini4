@@ -1,4 +1,4 @@
-using Mini4.Combat;
+ï»¿using Mini4.Combat;
 using Mini4.Tower;
 using TMPro;
 using UnityEngine;
@@ -351,6 +351,7 @@ namespace Mini4.UI
             if (upgradeButton != null)
             {
                 bool canPreview = towerSystemManager != null &&
+                                  towerSystemManager.FreePopulation >= 1 &&
                                   towerSystemManager.TryGetUpgradePreview(_selectedTower, out _, out _, out _, out _, out _);
                 upgradeButton.interactable = canPreview;
             }
@@ -383,7 +384,7 @@ namespace Mini4.UI
 
                 if (confirmExplainText != null)
                 {
-                    confirmExplainText.text = "ÀÌ¹Ì ÃÖ´ë °­È­(+5)ÀÔ´Ï´Ù.";
+                    confirmExplainText.text = "ì´ë¯¸ ìµœëŒ€ ê°•í™”(+5)ì…ë‹ˆë‹¤.";
                 }
 
                 ShowOnlyTowerPanel(false);
@@ -523,4 +524,7 @@ namespace Mini4.UI
         }
     }
 }
+
+
+
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9104603345904206357}
   - component: {fileID: 7623910946021808587}
   - component: {fileID: -1383935266228805478}
+  - component: {fileID: -431296486879356397}
   m_Layer: 0
   m_Name: Cannon_tower
   m_TagString: Untagged
@@ -138,3 +139,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.75, y: 1.25}
   m_EdgeRadius: 0
+--- !u!114 &-431296486879356397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2918212015571260835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5347024275e49b347ae546a6d3d5b892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mini4.Tower.TowerProjectileSource
+  projectilePrefab: {fileID: 333355706035172629, guid: 5af6c5e6bd68ad540bbce24a6c6276a5, type: 3}
+  projectileSpawnOffset: {x: 0, y: 0.2, z: 0}

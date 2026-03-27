@@ -9,6 +9,8 @@ namespace Mini4.Tower
         [SerializeField] private TowerInstance towerInstance;
         [SerializeField] private float attackRange = 2.4f;
         [SerializeField] private float attackInterval = 0.6f;
+        [SerializeField] private GameObject projectilePrefab;
+        [SerializeField] private Vector3 projectileSpawnOffset = new Vector3(0f, 0.2f, 0f);
 
         public float AttackRange => attackRange;
 
@@ -25,6 +27,12 @@ namespace Mini4.Tower
         public void SetAttackRange(float range)
         {
             attackRange = Mathf.Max(0.1f, range);
+        }
+
+        public void SetProjectileConfig(GameObject prefab, Vector3 spawnOffset)
+        {
+            projectilePrefab = prefab;
+            projectileSpawnOffset = spawnOffset;
         }
 
         private void Update()
@@ -49,6 +57,17 @@ namespace Mini4.Tower
 
             _cooldown = attackInterval;
             float damage = towerInstance != null ? towerInstance.CurrentAttack : 1f;
+
+            if (projectilePrefab != null)
+            {
+                TowerProjectile projectile = ProjectilePoolManager.Spawn(projectilePrefab, transform.position + projectileSpawnOffset, Quaternion.identity);
+                if (projectile != null)
+                {
+                    projectile.Launch(targetEnemy.transform, damage);
+                    return;
+                }
+            }
+
             enemyHealth.TakeDamage(damage);
         }
 
@@ -78,4 +97,3 @@ namespace Mini4.Tower
         }
     }
 }
-

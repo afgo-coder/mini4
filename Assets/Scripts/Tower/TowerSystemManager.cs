@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Mini4.Combat;
 using Mini4.Economy;
@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Mini4.Tower
 {
     /// <summary>
-    /// ?�??건설(골드/?�구) �?강화 ?�률/비용 규칙 관�?
+    /// ???嫄댁꽕(怨⑤뱶/?멸뎄) 諛?媛뺥솕 ?뺣쪧/鍮꾩슜 洹쒖튃 愿由?
     /// </summary>
     public class TowerSystemManager : MonoBehaviour
     {
@@ -41,7 +41,7 @@ namespace Mini4.Tower
             new TowerCost { type = AttackTowerType.PoisonWizard, goldCost = 6, baseAttack = 14f, hp = 45f, range = 2.9f, prefab = null },
         };
 
-        // index 1~5 ?�용
+        // index 1~5 ?ъ슜
         private static readonly float[] UpgradeSuccessRate = { 0f, 0.9f, 0.8f, 0.6f, 0.4f, 0.3f };
         private static readonly int[] UpgradeCost = { 0, 1, 2, 3, 5, 7 };
         private static readonly float[] UpgradeAdd = { 0f, 1f, 2f, 4f, 6f, 10f };
@@ -179,6 +179,12 @@ namespace Mini4.Tower
 
             autoAttack.SetAttackRange(cost.range);
 
+            TowerProjectileSource projectileSource = go.GetComponent<TowerProjectileSource>();
+            if (projectileSource != null)
+            {
+                autoAttack.SetProjectileConfig(projectileSource.ProjectilePrefab, projectileSource.ProjectileSpawnOffset);
+            }
+
             if (go.GetComponent<TowerRangeOverlay>() == null)
             {
                 go.AddComponent<TowerRangeOverlay>();
@@ -229,7 +235,7 @@ namespace Mini4.Tower
 
             target.ApplyUpgrade(UpgradeAdd[nextLevel], UpgradePercent[nextLevel]);
 
-            TotalPopulation += 1;
+            UsedPopulation += 1;
             OnPopulationChanged?.Invoke(UsedPopulation, TotalPopulation);
             return true;
         }
@@ -244,6 +250,9 @@ namespace Mini4.Tower
         }
     }
 }
+
+
+
 
 
 
